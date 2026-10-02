@@ -359,6 +359,17 @@
   }
   .group-card:last-child { margin-bottom: 0; }
   .group-top { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+  .live-group-top-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: -6px -6px 6px;
+    padding: 6px;
+    transition: background 0.15s ease;
+  }
+  .live-group-top-link:hover { background: var(--paper); }
+  .live-group-top-link .group-loc { color: var(--orange-deep); }
   .group-icon {
     width: 42px; height: 42px;
     border-radius: 10px;
@@ -1100,12 +1111,26 @@
         );
       }).join('');
 
+      const hasGps = typeof g.lat === 'number' && typeof g.lng === 'number';
+      const mapUrl = hasGps
+        ? 'https://www.google.com/maps/search/?api=1&query=' + g.lat + ',' + g.lng
+        : null;
+      const addressLine = g.address
+        ? '<div class="group-loc">' + pinIcon() + '<span>' + g.address + '</span></div>'
+        : '';
+
+      const headerInner =
+        '<span class="group-icon">' + personIcon() + '</span>' +
+        '<div><p class="group-name">' + g.name + '</p>' + addressLine + '</div>';
+
+      const headerTag = mapUrl ? 'a' : 'div';
+      const headerAttrs = mapUrl
+        ? ' href="' + mapUrl + '" target="_blank" rel="noopener" class="group-top live-group-top-link"'
+        : ' class="group-top"';
+
       return (
         '<div class="group-card">' +
-          '<div class="group-top">' +
-            '<span class="group-icon">' + personIcon() + '</span>' +
-            '<div><p class="group-name">' + g.name + '</p></div>' +
-          '</div>' +
+          '<' + headerTag + headerAttrs + '>' + headerInner + '</' + headerTag + '>' +
           '<div class="live-group-stats">' + g.farmerCount + ' ' + dict.statFarmers.toLowerCase() + ' · ' + g.totalWeight + ' kg</div>' +
           '<div class="live-group-farmers">' + farmerRows + '</div>' +
         '</div>'
