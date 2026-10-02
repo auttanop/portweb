@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือการใช้งาน — ระบบจองทีม IV | โรงพยาบาลวิมุต</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary:#005059;--accent:#C48A00;--green:#1fb361;--blue:#2B6EA8;--red:#CC3333;
+  --bg:#F3F0EE;--surface:#fff;--border:#DDE2D8;--text:#0f2336;--muted:#687182;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Sarabun',-apple-system,sans-serif;font-size:15px;background:var(--bg);color:var(--text);line-height:1.65}
+
+/* ── COVER ── */
+.cover{background:linear-gradient(160deg,#005059 0%,#003a40 60%,#002830 100%);color:#fff;padding:60px 40px 50px;text-align:center;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:rgba(196,138,0,.15);border-radius:50%}
+.cover::after{content:'';position:absolute;bottom:-60px;left:-60px;width:220px;height:220px;background:rgba(255,255,255,.04);border-radius:50%}
+.cover-logo{width:80px;height:80px;background:rgba(255,255,255,.12);border-radius:16px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
+.cover h1{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.cover h2{font-size:15px;font-weight:500;opacity:.75;margin-bottom:24px}
+.cover-meta{display:inline-flex;gap:16px;background:rgba(255,255,255,.1);border-radius:8px;padding:8px 20px;font-size:12px;font-weight:600;opacity:.85}
+.cover-badges{display:flex;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap}
+.cover-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:90px;padding:4px 14px;font-size:11px;font-weight:600}
+.cover-badge.type1{background:rgba(196,138,0,.25);border-color:rgba(196,138,0,.4);color:#FFD966}
+.cover-badge.type0{background:rgba(31,179,97,.2);border-color:rgba(31,179,97,.35);color:#7FFBB8}
+
+/* ── LAYOUT ── */
+.container{max-width:900px;margin:0 auto;padding:32px 20px 60px}
+
+/* ── TOC ── */
+.toc-card{background:var(--surface);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.07);padding:24px 28px;margin-bottom:32px}
+.toc-title{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px}
+.toc-item{display:flex;align-items:center;gap:8px;padding:4px 0}
+.toc-item a{color:var(--primary);text-decoration:none;font-size:13px;font-weight:500}
+.toc-item a:hover{text-decoration:underline}
+.toc-dot{width:6px;height:6px;background:var(--primary);border-radius:50%;flex-shrink:0;opacity:.5}
+
+/* ── SECTION HEADERS ── */
+.section-header{display:flex;align-items:center;gap:14px;background:var(--primary);color:#fff;padding:16px 22px;border-radius:12px 12px 0 0;margin-top:36px}
+.section-header.accent{background:var(--accent)}
+.section-num{width:32px;height:32px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.section-header h2{font-size:17px;font-weight:700;flex:1}
+.section-header .user-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{padding:3px 10px;border-radius:90px;font-size:10px;font-weight:700}
+.tag-t1{background:rgba(196,138,0,.35);color:#FFD966;border:1px solid rgba(196,138,0,.4)}
+.tag-t0{background:rgba(31,179,97,.25);color:#7FFBB8;border:1px solid rgba(31,179,97,.35)}
+.tag-all{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.section-body{background:var(--surface);border-radius:0 0 12px 12px;box-shadow:0 2px 12px rgba(0,0,0,.07);overflow:hidden}
+
+/* ── SUBSECTIONS ── */
+.subsection{padding:22px 24px;border-bottom:1px solid var(--border)}
+.subsection:last-child{border-bottom:none}
+.subsection h3{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sub-icon{width:24px;height:24px;background:#EDF7F6;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── STEPS ── */
+.steps{display:flex;flex-direction:column;gap:10px}
+.step{display:flex;gap:12px;align-items:flex-start}
+.step-num{width:24px;height:24px;background:var(--primary);color:#fff;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;line-height:1.65;flex:1}
+
+/* ── TABLES ── */
+.field-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.field-table th{background:#F3F0EE;padding:8px 12px;text-align:left;font-weight:700;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--border)}
+.field-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.field-table tr:last-child td{border-bottom:none}
+.field-table tr:nth-child(even) td{background:#FAFAF9}
+.req-star{color:var(--red);font-weight:700}
+.opt-tag{font-size:10px;background:#f0f0f0;color:var(--muted);padding:1px 6px;border-radius:90px;font-weight:600}
+.auto-tag{font-size:10px;background:#EDF7F6;color:var(--primary);padding:1px 6px;border-radius:90px;font-weight:600;border:1px solid #B5DAD7}
+
+/* ── CALLOUTS ── */
+.callout{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:8px;margin-top:12px;font-size:12px;line-height:1.6}
+.callout-info{background:#EAF2FB;border-left:3px solid var(--blue)}
+.callout-warn{background:#FEF6E4;border-left:3px solid var(--accent)}
+.callout-success{background:#EDF7F0;border-left:3px solid var(--green)}
+.callout-danger{background:#FEF0F0;border-left:3px solid var(--red)}
+.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.callout strong{display:block;font-weight:700;margin-bottom:2px;font-size:12px}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;border-radius:90px;font-size:11px;font-weight:700;padding:2px 9px}
+.badge-pending{background:#FEF6E4;color:#8A5D00;border:1px solid #F6D88A}
+.badge-ongoing{background:#EAF2FB;color:#1a5f9e;border:1px solid #9EC8F0}
+.badge-completed{background:#EDF7F0;color:#196b3a;border:1px solid #A5DEB8}
+.badge-canceled{background:#f5f5f5;color:#777;border:1px solid #ccc}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.dot-y{background:#C48A00}.dot-b{background:var(--blue)}.dot-g{background:var(--green)}.dot-grey{background:#aaa}
+
+/* ── LAYOUT HELPERS ── */
+.user-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:14px;font-size:12px;font-weight:600}
+.user-banner.t1{background:#FEF6E4;border:1px solid #F6D88A;color:#8A5D00}
+.user-banner.t0{background:#EDF7F0;border:1px solid #A5DEB8;color:#196b3a}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.mini-card{background:var(--bg);border-radius:8px;padding:12px 14px;font-size:12px}
+.mini-card h4{font-size:12px;font-weight:700;margin-bottom:6px;color:var(--primary)}
+
+/* ══════════════════════════════════════
+   MOCKUP STYLES
+══════════════════════════════════════ */
+.mk-wrap{display:flex;justify-content:center;margin:20px 0 8px}
+.mk-frame{width:260px;flex-shrink:0;background:#1c1c1e;border-radius:30px;padding:7px;box-shadow:0 16px 48px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.06) inset}
+.mk-screen{background:#F3F0EE;border-radius:24px;overflow:hidden;font-family:'Sarabun',-apple-system,sans-serif}
+.mk-statusbar{background:#005059;height:16px;display:flex;align-items:center;justify-content:flex-end;padding:0 12px;gap:4px}
+.mk-statusbar span{font-size:7px;color:rgba(255,255,255,.7);font-weight:600}
+.mk-topbar{background:#005059;color:#fff;padding:6px 10px;display:flex;align-items:center;gap:6px}
+.mk-topbar-icon{width:20px;height:20px;background:rgba(255,255,255,.15);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mk-topbar-info{flex:1;min-width:0}
+.mk-topbar-title{font-size:10px;font-weight:700;line-height:1}
+.mk-topbar-sub{font-size:8px;opacity:.7;margin-top:1px}
+.mk-topbar-btn{background:rgba(255,255,255,.15);border-radius:4px;padding:3px 6px;font-size:8px;font-weight:600;color:#fff;white-space:nowrap}
+.mk-badge-count{background:#C48A00;color:#fff;font-size:8px;font-weight:700;padding:1px 6px;border-radius:90px}
+.mk-nav{background:#005059;display:flex;border-top:1px solid rgba(255,255,255,.1)}
+.mk-tab{flex:1;padding:5px 2px;text-align:center;font-size:7.5px;font-weight:600;color:rgba(255,255,255,.55);border-bottom:2px solid transparent}
+.mk-tab.active{color:#fff;border-bottom-color:#C48A00}
+.mk-body{padding:8px;background:#F3F0EE;min-height:60px}
+.mk-card{background:#fff;border-radius:8px;margin-bottom:6px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.mk-card-hd{background:#005059;color:rgba(255,255,255,.9);font-size:8px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:5px 10px}
+.mk-card-hd.blue{background:#2B6EA8}
+.mk-card-hd.green{background:#1fb361}
+.mk-card-body{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+.mk-field{display:flex;flex-direction:column;gap:2px}
+.mk-lbl{font-size:7.5px;font-weight:600;color:#687182}
+.mk-input{background:#F3F0EE;border:1.5px solid #DDE2D8;border-radius:4px;padding:4px 7px;font-size:8.5px;color:#0f2336}
+.mk-input.focus{border-color:#005059}
+.mk-input.disabled{color:#687182}
+.mk-auto-disp{background:#F3F0EE;border:1.5px solid #DDE2D8;border-radius:4px;padding:4px 7px;font-size:8.5px;color:#0f2336;font-weight:600}
+.mk-bdg{display:inline-flex;align-items:center;gap:3px;border-radius:90px;font-size:8px;font-weight:700;padding:1px 7px}
+.mk-bdg.pending{background:#FEF6E4;color:#8A5D00;border:1px solid #F6D88A}
+.mk-bdg.ongoing{background:#EAF2FB;color:#1a5f9e;border:1px solid #9EC8F0}
+.mk-bdg.completed{background:#EDF7F0;color:#196b3a;border:1px solid #A5DEB8}
+.mk-bdg.canceled{background:#f5f5f5;color:#777;border:1px solid #ccc}
+.mk-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0}
+.mk-dot.y{background:#C48A00}.mk-dot.b{background:#2B6EA8}.mk-dot.g{background:#1fb361}.mk-dot.gr{background:#aaa}
+.mk-case-card{background:#fff;border-radius:8px;padding:7px 9px;display:flex;align-items:center;gap:7px;margin-bottom:5px;box-shadow:0 1px 3px rgba(0,0,0,.05);border:1.5px solid transparent}
+.mk-case-no{width:28px;height:28px;background:#005059;color:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.mk-case-no.ong{background:#2B6EA8}
+.mk-case-info{flex:1;min-width:0}
+.mk-c-dept{font-size:9px;font-weight:600}
+.mk-c-time{font-size:7.5px;color:#687182}
+.mk-c-reason{font-size:7.5px;color:#0D5E56;background:#EDF7F6;padding:1px 5px;border-radius:90px;display:inline-block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.mk-c-accepted{font-size:7.5px;font-weight:600;color:#2B6EA8;margin-top:2px}
+.mk-chevron{color:#DDE2D8;flex-shrink:0}
+.mk-refresh-btn{background:#fff;border:1px solid #DDE2D8;border-radius:4px;padding:3px 7px;font-size:7.5px;font-weight:600;color:#687182}
+.mk-cl-hd{display:grid;grid-template-columns:20px 1fr 34px 44px;gap:4px;padding:5px 8px;background:#005059}
+.mk-cl-hd span{font-size:7px;font-weight:700;color:rgba(255,255,255,.85)}
+.mk-cl-row{display:grid;grid-template-columns:20px 1fr 34px 44px;gap:4px;padding:5px 8px;border-bottom:1px solid #DDE2D8;align-items:center}
+.mk-cl-row:nth-child(even){background:#FAFAF9}
+.mk-cl-no{font-size:9px;font-weight:700;color:#005059}
+.mk-cl-dept{font-size:8px;font-weight:600}
+.mk-cl-name{font-size:7px;color:#687182;margin-top:1px}
+.mk-cl-time{font-size:7.5px;color:#687182}
+.mk-mc-card{background:#fff;border-radius:8px;padding:9px 10px;margin-bottom:6px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.mk-mc-top{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.mk-mc-name{font-size:9px;font-weight:600}
+.mk-mc-hn{font-size:8px;color:#687182;margin-bottom:2px}
+.mk-mc-proc{font-size:8px;color:#687182}
+.mk-mc-accepted{font-size:8px;font-weight:600;color:#2B6EA8;margin-top:3px}
+.mk-mc-completedby{font-size:8px;font-weight:600;color:#1fb361;margin-top:1px}
+.mk-det-section{margin-bottom:6px;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.mk-det-hd{background:#005059;color:rgba(255,255,255,.9);font-size:7.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px}
+.mk-det-row{display:flex;padding:4px 10px;border-bottom:1px solid #DDE2D8;gap:6px;background:#fff}
+.mk-det-row:last-child{border-bottom:none}
+.mk-det-lbl{font-size:7.5px;font-weight:600;color:#687182;width:65px;flex-shrink:0;padding-top:1px}
+.mk-det-val{font-size:8px;color:#0f2336;font-weight:500}
+.mk-btn-row{display:flex;gap:5px;padding:7px 8px;background:#fff;border-top:1px solid #DDE2D8}
+.mk-btn{flex:1;padding:7px 6px;border-radius:5px;font-size:8px;font-weight:700;text-align:center}
+.mk-btn.secondary{background:#F3F0EE;color:#687182}
+.mk-btn.blue{background:#2B6EA8;color:#fff}
+.mk-btn.green{background:#1fb361;color:#fff}
+.mk-login-bg{background:linear-gradient(160deg,#5BB8D4,#2E86A8);padding:16px 12px;display:flex;flex-direction:column;align-items:center}
+.mk-login-logo{width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.mk-login-card{background:rgba(255,255,255,.96);border-radius:8px;padding:12px;width:100%}
+.mk-login-title{font-size:10px;font-weight:700;color:#005059;text-align:center;margin-bottom:2px}
+.mk-login-sub{font-size:8px;color:#687182;text-align:center;margin-bottom:10px}
+.mk-login-field{margin-bottom:8px}
+.mk-login-lbl{font-size:8px;font-weight:600;color:#0f2336;display:block;margin-bottom:3px}
+.mk-login-input{width:100%;padding:6px 9px;border:1.5px solid #DDE2D8;border-radius:5px;font-size:9px;color:#0f2336;background:#fff}
+.mk-login-btn{width:100%;padding:8px;background:#005059;color:#fff;border-radius:5px;font-size:9px;font-weight:700;text-align:center;margin-top:4px}
+.mk-flow-grid{display:flex;flex-wrap:wrap;gap:5px;padding:0 8px 8px;background:#fff;border-radius:0 0 8px 8px}
+.mk-flow-box{flex:1;min-width:42%;border-radius:6px;padding:6px;text-align:center}
+.mk-flow-box.p{background:#FEF6E4}.mk-flow-box.o{background:#EAF2FB}.mk-flow-box.d{background:#EDF7F0}.mk-flow-box.c{background:#f0f0f0;border:1.5px solid #ddd}
+.mk-flow-num{font-size:18px;font-weight:800;line-height:1}
+.mk-flow-num.p{color:#C48A00}.mk-flow-num.o{color:#2B6EA8}.mk-flow-num.d{color:#1fb361}.mk-flow-num.c{color:#888}
+.mk-flow-lbl{font-size:7px;font-weight:700;text-transform:uppercase;margin-top:2px}
+.mk-flow-lbl.p{color:#C48A00}.mk-flow-lbl.o{color:#2B6EA8}.mk-flow-lbl.d{color:#1fb361}.mk-flow-lbl.c{color:#888}
+.mk-kpi2{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px}
+.mk-kpi-card{background:#fff;border-radius:7px;padding:7px 9px}
+.mk-kpi-lbl{font-size:7px;font-weight:600;color:#687182;text-transform:uppercase;letter-spacing:.3px}
+.mk-kpi-val{font-size:14px;font-weight:800;letter-spacing:-.3px}
+.mk-kpi-card.a .mk-kpi-val{color:#C48A00}
+.mk-kpi-card.g .mk-kpi-val{color:#1fb361}
+.mk-kpi-sub{font-size:7px;color:#687182;margin-top:2px}
+.mk-gauge-wrap{background:#fff;border-radius:8px;padding:8px 10px;margin-top:6px;display:flex;align-items:center;gap:8px}
+.mk-caption{text-align:center;font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
+
+/* ── SIDE LAYOUT ── */
+.mk-layout{display:flex;gap:20px;align-items:flex-start;margin-top:4px}
+.mk-layout-content{flex:1;min-width:0}
+.mk-layout-phone{flex-shrink:0}
+@media(max-width:680px){
+  .mk-layout{flex-direction:column}
+  .mk-layout-phone{width:100%;display:flex;justify-content:center}
+  .toc-grid{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+}
+
+/* ── PRINT ── */
+@media print{
+  body{background:#fff;font-size:13px}
+  .cover{padding:40px 30px}
+  .section-header{margin-top:24px}
+  .mk-frame{box-shadow:none;border:2px solid #222}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ COVER ══════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+  </div>
+  <h1>ระบบจองทีม IV</h1>
+  <h2>คู่มือการใช้งาน — โรงพยาบาลวิมุต</h2>
+  <div class="cover-meta"><span>📋 เวอร์ชัน 1.0</span><span>|</span><span>🏥 โรงพยาบาลวิมุต</span><span>|</span><span>📅 2026</span></div>
+  <div class="cover-badges">
+    <span class="cover-badge type1">🔷 ทีม IV (ประเภท 1)</span>
+    <span class="cover-badge type0">🟢 แผนกอื่น ๆ (ประเภท 0)</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══ TOC ══════════════════════════════════ -->
+<div class="toc-card">
+  <div class="toc-title">สารบัญ</div>
+  <div class="toc-grid">
+    <div class="toc-item"><span class="toc-dot"></span><a href="#login">1. เข้าสู่ระบบ &amp; เซสชัน</a></div>
+    <div class="toc-item"><span class="toc-dot"></span><a href="#booking">2. แจ้งขอรับบริการ</a></div>
+    <div class="toc-item"><span class="toc-dot"></span><a href="#caselist">3. รายการเคส</a></div>
+    <div class="toc-item"><span class="toc-dot"></span><a href="#mycase">4. เคสของฉัน</a></div>
+    <div class="toc-item"><span class="toc-dot"></span><a href="#ivteam">5. ทีม IV <em style="font-weight:400;opacity:.7">(ประเภท 1 เท่านั้น)</em></a></div>
+    <div class="toc-item"><span class="toc-dot"></span><a href="#dashboard">6. แดชบอร์ด <em style="font-weight:400;opacity:.7">(ประเภท 1 เท่านั้น)</em></a></div>
+  </div>
+</div>
+
+<!-- Overview -->
+<div class="callout callout-info"><span class="callout-icon">ℹ️</span><div><strong>เกี่ยวกับระบบนี้</strong>ระบบจองทีม IV ช่วยให้แผนกต่าง ๆ สามารถแจ้งขอรับบริการจากทีม IV และให้ทีม IV บริหารจัดการเคสได้ตั้งแต่ต้นจนจบ เปิดลิงก์เว็บแอปในเบราว์เซอร์ได้เลย ไม่ต้องติดตั้งโปรแกรม</div></div>
+<div class="two-col" style="margin-top:16px">
+  <div class="mini-card"><h4>🔷 ประเภท 1 — ทีม IV</h4>เข้าถึงได้ครบ 5 หน้า: แจ้งขอรับบริการ, รายการเคส, เคสของฉัน, ทีม IV, แดชบอร์ด รับการแจ้งเตือนเสียงเมื่อมีเคสใหม่</div>
+  <div class="mini-card"><h4>🟢 ประเภท 0 — แผนกต่าง ๆ</h4>เข้าถึงได้ 3 หน้า: แจ้งขอรับบริการ, รายการเคส, เคสของฉัน สามารถส่งและจัดการการจองของตนเองได้</div>
+</div>
+
+<!-- ══ OVERVIEW & BENEFITS ══════════════════ -->
+<div style="margin-top:28px">
+  <div style="background:var(--primary);color:#fff;padding:16px 22px;border-radius:12px 12px 0 0;display:flex;align-items:center;gap:14px">
+    <div style="width:32px;height:32px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <h2 style="font-size:17px;font-weight:700">ภาพรวมและประโยชน์ของระบบ</h2>
+  </div>
+  <div style="background:var(--surface);border-radius:0 0 12px 12px;box-shadow:0 2px 12px rgba(0,0,0,.07);overflow:hidden">
+
+    <!-- ภาพรวม -->
+    <div style="padding:22px 24px;border-bottom:1px solid var(--border)">
+      <h3 style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:12px;display:flex;align-items:center;gap:8px">
+        <div style="width:24px;height:24px;background:#EDF7F6;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#005059" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
+        ระบบนี้คืออะไร?
+      </h3>
+      <p style="font-size:13px;color:var(--text);line-height:1.8;margin-bottom:10px">
+        ระบบจองทีม IV เป็นเว็บแอปพลิเคชันสำหรับโรงพยาบาลวิมุต ออกแบบมาเพื่อเชื่อมการสื่อสารระหว่าง <strong>แผนกต่าง ๆ ที่ต้องการความช่วยเหลือ</strong> กับ <strong>ทีม IV (Intravenous Team)</strong> ให้เป็นระบบดิจิทัล รวดเร็ว และโปร่งใส
+      </p>
+      <p style="font-size:13px;color:var(--text);line-height:1.8">
+        แทนที่จะโทรศัพท์หรือส่งข้อความเพื่อแจ้งเคส แผนกสามารถกรอกแบบฟอร์มออนไลน์ได้ในไม่กี่วินาที ทีม IV จะรับการแจ้งเตือนทันทีผ่าน LINE และสามารถบริหารเคสได้ตั้งแต่การรับจนถึงการปิดเคส พร้อมบันทึกข้อมูลอย่างครบถ้วน
+      </p>
+
+      <!-- ขั้นตอนการทำงาน -->
+      <div style="margin-top:16px;background:#F7F9FF;border-radius:10px;padding:14px 16px;border:1px solid #DDE2D8">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">ขั้นตอนการทำงานของระบบ</div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <div style="background:#EDF7F6;border:1.5px solid #B5DAD7;border-radius:8px;padding:8px 12px;text-align:center;min-width:80px">
+            <div style="font-size:16px;margin-bottom:2px">📋</div>
+            <div style="font-size:10px;font-weight:700;color:var(--primary)">แผนกส่งคำขอ</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:1px">กรอกแบบฟอร์ม</div>
+          </div>
+          <div style="color:#DDE2D8;font-size:18px;font-weight:300">→</div>
+          <div style="background:#FEF6E4;border:1.5px solid #F6D88A;border-radius:8px;padding:8px 12px;text-align:center;min-width:80px">
+            <div style="font-size:16px;margin-bottom:2px">🔔</div>
+            <div style="font-size:10px;font-weight:700;color:#8A5D00">ทีม IV รับแจ้ง</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:1px">LINE + เสียงเตือน</div>
+          </div>
+          <div style="color:#DDE2D8;font-size:18px;font-weight:300">→</div>
+          <div style="background:#EAF2FB;border:1.5px solid #9EC8F0;border-radius:8px;padding:8px 12px;text-align:center;min-width:80px">
+            <div style="font-size:16px;margin-bottom:2px">👤</div>
+            <div style="font-size:10px;font-weight:700;color:#1a5f9e">รับเคส</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:1px">ระบุผู้รับผิดชอบ</div>
+          </div>
+          <div style="color:#DDE2D8;font-size:18px;font-weight:300">→</div>
+          <div style="background:#EDF7F0;border:1.5px solid #A5DEB8;border-radius:8px;padding:8px 12px;text-align:center;min-width:80px">
+            <div style="font-size:16px;margin-bottom:2px">✅</div>
+            <div style="font-size:10px;font-weight:700;color:#196b3a">ปิดเคส</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:1px">บันทึกผลลัพธ์</div>
+          </div>
+          <div style="color:#DDE2D8;font-size:18px;font-weight:300">→</div>
+          <div style="background:#F3F0EE;border:1.5px solid #DDE2D8;border-radius:8px;padding:8px 12px;text-align:center;min-width:80px">
+            <div style="font-size:16px;margin-bottom:2px">📊</div>
+            <div style="font-size:10px;font-weight:700;color:var(--primary)">วิเคราะห์ข้อมูล</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:1px">แดชบอร์ด KPI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ประโยชน์ -->
+    <div style="padding:22px 24px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:8px">
+        <div style="width:24px;height:24px;background:#EDF7F6;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#005059" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        ประโยชน์ที่ได้รับ
+      </h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+
+        <div style="background:#EDF7F6;border-radius:10px;padding:14px;border:1px solid #B5DAD7">
+          <div style="font-size:12px;font-weight:700;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:14px">⚡</span> เร็วและแม่นยำยิ่งขึ้น
+          </div>
+          <div style="font-size:12px;color:var(--text);line-height:1.75">
+            แจ้งเคสได้ทันทีจากมือถือ ไม่ต้องรอสาย ไม่ต้องเดินไปตาม ทีม IV รับข้อมูลครบถ้วนพร้อมรับเคสได้เลย
+          </div>
+        </div>
+
+        <div style="background:#EAF2FB;border-radius:10px;padding:14px;border:1px solid #9EC8F0">
+          <div style="font-size:12px;font-weight:700;color:#1a5f9e;margin-bottom:10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:14px">👁</span> โปร่งใสทุกขั้นตอน
+          </div>
+          <div style="font-size:12px;color:var(--text);line-height:1.75">
+            แผนกสามารถติดตามสถานะเคสแบบ real-time ทราบว่าใครรับเคสและเสร็จเมื่อไร ลดการโทรถามซ้ำ
+          </div>
+        </div>
+
+        <div style="background:#FEF6E4;border-radius:10px;padding:14px;border:1px solid #F6D88A">
+          <div style="font-size:12px;font-weight:700;color:#8A5D00;margin-bottom:10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:14px">📝</span> บันทึกข้อมูลครบถ้วน
+          </div>
+          <div style="font-size:12px;color:var(--text);line-height:1.75">
+            ทุกเคสบันทึกผู้รับเคส ผู้ทำหัตถการ จำนวนครั้ง ตำแหน่ง และอุปกรณ์ที่ใช้ รองรับการตรวจสอบย้อนหลัง
+          </div>
+        </div>
+
+        <div style="background:#EDF7F0;border-radius:10px;padding:14px;border:1px solid #A5DEB8">
+          <div style="font-size:12px;font-weight:700;color:#196b3a;margin-bottom:10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:14px">📊</span> ข้อมูลเชิงลึกสำหรับผู้บริหาร
+          </div>
+          <div style="font-size:12px;color:var(--text);line-height:1.75">
+            แดชบอร์ดแสดงเวลาตอบสนอง อัตราสำเร็จครั้งแรก ภาระงานของทีม ช่วยวางแผนและพัฒนาคุณภาพการบริการ
+          </div>
+        </div>
+
+        <div style="background:#F3EEF8;border-radius:10px;padding:14px;border:1px solid #D8C8ED">
+          <div style="font-size:12px;font-weight:700;color:#5B3A8A;margin-bottom:10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:14px">📱</span> ใช้งานได้ทุกที่
+          </div>
+          <div style="font-size:12px;color:var(--text);line-height:1.75">
+            เปิดผ่านเบราว์เซอร์บนมือถือหรือคอมพิวเตอร์ ไม่ต้องติดตั้งแอป รองรับทุกอุปกรณ์ในโรงพยาบาล
+          </div>
+        </div>
+
+        <div style="background:#FFF0F0;border-radius:10px;padding:14px;border:1px solid #F5C6C6">
+          <div style="font-size:12px;font-weight:700;color:#8A2020;margin-bottom:10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:14px">🔔</span> แจ้งเตือนอัตโนมัติ
+          </div>
+          <div style="font-size:12px;color:var(--text);line-height:1.75">
+            ทีม IV รับการแจ้งเตือนผ่าน LINE ทันที พร้อมเสียงปิงในแอปทุก 60 วินาที ไม่มีเคสตกหล่น
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     1. เข้าสู่ระบบ
+════════════════════════════════════════ -->
+<div id="login">
+  <div class="section-header"><div class="section-num">1</div><h2>เข้าสู่ระบบ &amp; เซสชัน</h2><div class="user-tags"><span class="tag tag-all">ผู้ใช้ทุกประเภท</span></div></div>
+  <div class="section-body">
+    <div class="subsection">
+      <h3><div class="sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#005059" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg></div>วิธีเข้าสู่ระบบ</h3>
+      <div class="mk-layout">
+        <div class="mk-layout-content">
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-text">เปิด URL ของเว็บแอปในเบราว์เซอร์ (แนะนำ Chrome)</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">เลือก <strong>แผนก</strong> ของคุณจากรายการ dropdown</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text">กรอก <strong>รหัสผ่าน</strong> (ตัวเลข 5 หลัก ที่ได้รับจากผู้ดูแลระบบ)</div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-text">กด <strong>เข้าสู่ระบบ</strong> ระบบจะพาไปที่หน้าแจ้งขอรับบริการโดยอัตโนมัติ</div></div>
+          </div>
+          <div class="callout callout-success" style="margin-top:14px"><span class="callout-icon">✅</span><div><strong>เซสชันคงอยู่นาน 12 ชั่วโมง</strong>การเข้าสู่ระบบจะถูกบันทึกไว้ 12 ชั่วโมง ปิดและเปิดเบราว์เซอร์บนมือถือใหม่ได้โดยไม่ต้องล็อกอินซ้ำ จนกว่าเซสชันจะหมดอายุ</div></div>
+          <div class="callout callout-info" style="margin-top:8px"><span class="callout-icon">🚪</span><div>หากต้องการออกจากระบบ กดปุ่ม <strong>ออกจากระบบ</strong> ที่มุมบนขวาของทุกหน้า</div></div>
+        </div>
+        <div class="mk-layout-phone">
+          <div class="mk-frame">
+            <div class="mk-screen">
+              <div class="mk-statusbar"><span>9:41</span></div>
+              <div class="mk-login-bg">
+                <div class="mk-login-logo">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <div class="mk-login-card">
+                  <div class="mk-login-title">ระบบจองทีม IV</div>
+                  <div class="mk-login-sub">โรงพยาบาลวิมุต — กรุณาเข้าสู่ระบบ</div>
+                  <div class="mk-login-field">
+                    <span class="mk-login-lbl">แผนก</span>
+                    <div class="mk-login-input" style="color:#005059;font-weight:600">ICU ▾</div>
+                  </div>
+                  <div class="mk-login-field">
+                    <span class="mk-login-lbl">รหัสผ่าน</span>
+                    <div class="mk-login-input">••••••</div>
+                  </div>
+                  <div class="mk-login-btn">เข้าสู่ระบบ</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mk-caption">หน้าเข้าสู่ระบบ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     2. แจ้งขอรับบริการ
+════════════════════════════════════════ -->
+<div id="booking">
+  <div class="section-header"><div class="section-num">2</div><h2>แจ้งขอรับบริการ</h2><div class="user-tags"><span class="tag tag-all">ผู้ใช้ทุกประเภท</span></div></div>
+  <div class="section-body">
+    <div class="subsection">
+      <h3><div class="sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#005059" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>วิธีส่งคำขอรับบริการ</h3>
+      <div class="mk-layout">
+        <div class="mk-layout-content">
+          <div class="callout callout-warn" style="margin-bottom:14px"><span class="callout-icon">⏰</span><div><strong>เวลาให้บริการ: 08:00 – 19:00 น. เท่านั้น</strong>การส่งคำขอนอกเวลาดังกล่าวจะไม่สามารถดำเนินการได้</div></div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-text">กด <strong>แจ้งขอรับบริการ</strong> จากแถบนำทางด้านล่าง</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">เลขที่เคสและเวลาส่งคำขอจะถูก<strong>กรอกอัตโนมัติ</strong> แผนกของคุณก็ถูกดึงมาจากข้อมูลการเข้าสู่ระบบแล้ว</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text">กรอกข้อมูลในช่องที่บังคับกรอก (มีเครื่องหมาย <span class="req-star">*</span>) หากขาดจะมีไฮไลต์สีแดง</div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-text">เพิ่มข้อมูลเสริม (ข้อควรระวัง, อุปกรณ์, แผนการรักษา) ตามความเหมาะสม</div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-text">กด <strong>ส่งคำขอ</strong> ระบบจะแสดงเลขที่เคสและส่งการแจ้งเตือน LINE ไปยังทีม IV ทันที</div></div>
+            <div class="step"><div class="step-num">6</div><div class="step-text">กด <strong>แจ้งเคสใหม่</strong> เพื่อล้างฟอร์มสำหรับผู้ป่วยรายต่อไป</div></div>
+          </div>
+        </div>
+        <div class="mk-layout-phone">
+          <div class="mk-frame">
+            <div class="mk-screen">
+              <div class="mk-statusbar"><span>9:41</span></div>
+              <div class="mk-topbar">
+                <div class="mk-topbar-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                <div class="mk-topbar-info"><div class="mk-topbar-title">ระบบจองทีม IV</div><div class="mk-topbar-sub">ICU</div></div>
+                <div class="mk-topbar-btn">ออกจากระบบ</div>
+              </div>
+              <div class="mk-nav">
+                <div class="mk-tab active">แจ้งขอ</div>
+                <div class="mk-tab">รายการเคส</div>
+                <div class="mk-tab">เคสของฉัน</div>
+              </div>
+              <div class="mk-body">
+                <div class="mk-card">
+                  <div class="mk-card-hd">ข้อมูลอัตโนมัติ</div>
+                  <div class="mk-card-body">
+                    <div class="mk-field"><div class="mk-lbl">เลขที่เคส ✓ อัตโนมัติ</div><div class="mk-auto-disp">003</div></div>
+                    <div class="mk-field"><div class="mk-lbl">เวลาส่งคำขอ ✓ อัตโนมัติ</div><div class="mk-auto-disp">10/06/2026 09:41</div></div>
+                  </div>
+                </div>
+                <div class="mk-card">
+                  <div class="mk-card-hd">รายละเอียดคำขอ</div>
+                  <div class="mk-card-body">
+                    <div class="mk-field"><div class="mk-lbl">แผนก</div><div class="mk-input disabled">ICU</div></div>
+                    <div class="mk-field"><div class="mk-lbl">เหตุผลในการขอ <span style="color:#CC3333">*</span></div><div class="mk-input focus" style="color:#005059;font-weight:600">Request IV Team ▾</div></div>
+                  </div>
+                </div>
+                <div class="mk-card">
+                  <div class="mk-card-hd">ข้อมูลผู้ป่วย</div>
+                  <div class="mk-card-body">
+                    <div class="mk-field"><div class="mk-lbl">HN <span style="color:#CC3333">*</span></div><div class="mk-input">1234567</div></div>
+                    <div class="mk-field"><div class="mk-lbl">ชื่อผู้ป่วย <span style="color:#CC3333">*</span></div><div class="mk-input">สมชาย ใจดี</div></div>
+                    <div class="mk-field"><div class="mk-lbl">อายุ <span style="color:#CC3333">*</span></div><div class="mk-input">45</div></div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:6px;padding:8px 0 4px">
+                  <div style="flex:1;padding:8px 10px;border-radius:6px;border:1.5px solid #DDE2D8;font-size:9px;font-weight:600;color:#687182;text-align:center">ล้างฟอร์ม</div>
+                  <div style="flex:2;padding:8px 10px;border-radius:6px;background:#005059;font-size:9px;font-weight:700;color:#fff;text-align:center">ส่งคำขอ</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mk-caption">ฟอร์มแจ้งขอรับบริการ</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px">
+        <div style="font-size:12px;font-weight:700;color:var(--primary);margin-bottom:10px">รายการช่องกรอกข้อมูลทั้งหมด</div>
+        <table class="field-table">
+          <thead><tr><th>ช่องข้อมูล</th><th>ประเภท</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td><strong>เลขที่เคส</strong></td><td><span class="auto-tag">อัตโนมัติ</span></td><td>รีเซ็ตเป็น 001 ทุกวัน</td></tr>
+            <tr><td><strong>เวลาส่งคำขอ</strong></td><td><span class="auto-tag">อัตโนมัติ</span></td><td>วันที่และเวลาปัจจุบัน</td></tr>
+            <tr><td><strong>แผนก</strong></td><td><span class="auto-tag">อัตโนมัติ</span></td><td>ดึงจากข้อมูลการเข้าสู่ระบบ</td></tr>
+            <tr><td><strong>เหตุผลในการขอ</strong></td><td><span class="req-star">*</span></td><td>Request IV Team / Failed venipuncture / DIVA / Lab Reject</td></tr>
+            <tr><td><strong>HN</strong></td><td><span class="req-star">*</span></td><td>หมายเลขประจำตัวผู้ป่วย</td></tr>
+            <tr><td><strong>ชื่อผู้ป่วย</strong></td><td><span class="req-star">*</span></td><td>ชื่อ-นามสกุล</td></tr>
+            <tr><td><strong>อายุ</strong></td><td><span class="req-star">*</span></td><td>หน่วยเป็นปี</td></tr>
+            <tr><td><strong>เลขที่เตียง</strong></td><td><span class="opt-tag">ไม่บังคับ</span></td><td>สำหรับผู้ป่วย IPD</td></tr>
+            <tr><td><strong>ประเภทหัตถการ</strong></td><td><span class="req-star">*</span></td><td>เจาะเลือด / แทง IV / เจาะเลือด + แทง IV</td></tr>
+            <tr><td><strong>ข้อควรระวัง</strong></td><td><span class="req-star">*</span></td><td>Standard / Contact / Droplet / Airborne / Other</td></tr>
+            <tr><td><strong>ตำแหน่งเจาะ</strong></td><td><span class="req-star">*</span></td><td>Any / ซ้าย / ขวา</td></tr>
+            <tr><td><strong>หมายเหตุเพิ่มเติม</strong></td><td><span class="opt-tag">ไม่บังคับ</span></td><td>ข้อความอิสระ</td></tr>
+            <tr><td><strong>ข้อควรระวังพิเศษ</strong></td><td><span class="opt-tag">ไม่บังคับ</span></td><td>กลัวเข็ม, หลีกเลี่ยงแขน/ขาซ้าย/ขวา เป็นต้น</td></tr>
+            <tr><td><strong>ประเภทอุปกรณ์ (NSS Lock)</strong></td><td><span class="opt-tag">ไม่บังคับ</span></td><td>BD Nexiva, IV Catheter, Scalp vein ขนาดต่าง ๆ</td></tr>
+            <tr><td><strong>แผนการรักษา</strong></td><td><span class="opt-tag">ไม่บังคับ</span></td><td>Admit, OR, GI Scope, CT, MRI เป็นต้น</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     3. รายการเคส
+════════════════════════════════════════ -->
+<div id="caselist">
+  <div class="section-header"><div class="section-num">3</div><h2>รายการเคส</h2><div class="user-tags"><span class="tag tag-all">ผู้ใช้ทุกประเภท</span></div></div>
+  <div class="section-body">
+    <div class="subsection">
+      <h3><div class="sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#005059" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>คิวงานวันนี้</h3>
+      <div class="mk-layout">
+        <div class="mk-layout-content">
+          <p style="font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:14px">แสดงเคส <strong>รอดำเนินการ</strong> และ <strong>กำลังดำเนินการ</strong> ของวันนี้แบบอ่านอย่างเดียว ทุกแผนกสามารถดูได้เพื่อตรวจสอบสถานะคิว</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <span class="badge badge-pending"><span class="dot dot-y"></span>รอดำเนินการ</span>
+            <span style="font-size:12px;color:var(--muted);align-self:center">= รอทีม IV รับเคส</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <span class="badge badge-ongoing"><span class="dot dot-b"></span>กำลังดำเนินการ</span>
+            <span style="font-size:12px;color:var(--muted);align-self:center">= ทีม IV กำลังดูแลอยู่</span>
+          </div>
+          <div class="steps" style="margin-top:8px">
+            <div class="step"><div class="step-num">1</div><div class="step-text">กด <strong>รายการเคส</strong> ในแถบนำทาง</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">ดูเคสทั้งหมดพร้อมเลขที่เคส แผนก ชื่อผู้ป่วย เวลาส่งคำขอ และสถานะ</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text">กด <strong>รีเฟรช</strong> เพื่อโหลดข้อมูลล่าสุด</div></div>
+          </div>
+          <div class="callout callout-info" style="margin-top:12px"><span class="callout-icon">ℹ️</span><div>เคสที่เสร็จสิ้นและยกเลิกแล้วจะไม่แสดงที่นี่ ใช้ <strong>เคสของฉัน</strong> เพื่อดูประวัติทั้งหมดของวัน</div></div>
+        </div>
+        <div class="mk-layout-phone">
+          <div class="mk-frame">
+            <div class="mk-screen">
+              <div class="mk-statusbar"><span>9:41</span></div>
+              <div class="mk-topbar">
+                <div class="mk-topbar-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg></div>
+                <div class="mk-topbar-info"><div class="mk-topbar-title">คิว IV วันนี้</div><div class="mk-topbar-sub">Ward 14</div></div>
+              </div>
+              <div class="mk-nav">
+                <div class="mk-tab">แจ้งขอ</div>
+                <div class="mk-tab active">รายการเคส</div>
+                <div class="mk-tab">เคสของฉัน</div>
+              </div>
+              <div class="mk-body" style="padding:8px 0">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px 4px">
+                  <div><div style="font-size:10px;font-weight:700">คิว IV วันนี้</div><div style="font-size:8px;color:#687182">10/06/2026</div></div>
+                  <div class="mk-refresh-btn">⟳ รีเฟรช</div>
+                </div>
+                <div class="mk-cl-hd"><span>เลขที่</span><span>แผนก / ผู้ป่วย</span><span>เวลา</span><span style="text-align:center">สถานะ</span></div>
+                <div style="background:#fff">
+                  <div class="mk-cl-row"><div class="mk-cl-no">001</div><div><div class="mk-cl-dept">ICU</div><div class="mk-cl-name">สมชาย ใจดี</div></div><div class="mk-cl-time">08:55</div><div style="text-align:center"><span class="mk-bdg ongoing"><span class="mk-dot b"></span>ดำเนินการ</span></div></div>
+                  <div class="mk-cl-row"><div class="mk-cl-no">002</div><div><div class="mk-cl-dept">ER OPD</div><div class="mk-cl-name">มาลี รักสวย</div></div><div class="mk-cl-time">09:12</div><div style="text-align:center"><span class="mk-bdg pending"><span class="mk-dot y"></span>รอ</span></div></div>
+                  <div class="mk-cl-row"><div class="mk-cl-no">003</div><div><div class="mk-cl-dept">Ward 14</div><div class="mk-cl-name">ประทีป ดีใจ</div></div><div class="mk-cl-time">09:38</div><div style="text-align:center"><span class="mk-bdg pending"><span class="mk-dot y"></span>รอ</span></div></div>
+                </div>
+                <div style="font-size:8px;color:#687182;text-align:right;padding:4px 10px">3 เคสใช้งานอยู่</div>
+              </div>
+            </div>
+          </div>
+          <div class="mk-caption">รายการเคส — อ่านอย่างเดียว</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     4. เคสของฉัน
+════════════════════════════════════════ -->
+<div id="mycase">
+  <div class="section-header"><div class="section-num">4</div><h2>เคสของฉัน</h2><div class="user-tags"><span class="tag tag-all">ผู้ใช้ทุกประเภท</span></div></div>
+  <div class="section-body">
+    <div class="subsection">
+      <h3><div class="sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#005059" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>ภาพรวม</h3>
+      <div class="mk-layout">
+        <div class="mk-layout-content">
+          <p style="font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px">แสดงเคสของวันนี้ทุกสถานะ ขอบเขตข้อมูลขึ้นอยู่กับประเภทผู้ใช้:</p>
+          <div class="two-col" style="margin-bottom:12px">
+            <div class="mini-card"><h4>🟢 ประเภท 0</h4>เห็นเฉพาะเคสของแผนกตนเองวันนี้</div>
+            <div class="mini-card"><h4>🔷 ประเภท 1</h4>เห็นเคสทุกแผนกของวันนี้</div>
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+            <span class="badge badge-pending"><span class="dot dot-y"></span>รอดำเนินการ</span>
+            <span class="badge badge-ongoing"><span class="dot dot-b"></span>กำลังดำเนินการ</span>
+            <span class="badge badge-completed"><span class="dot dot-g"></span>เสร็จสิ้น</span>
+            <span class="badge badge-canceled"><span class="dot dot-grey"></span>ยกเลิก</span>
+          </div>
+          <div style="background:#F7F9FF;border-radius:8px;padding:12px;font-size:12px;line-height:1.8;border:1px solid #DDE2D8">
+            <div style="font-weight:700;color:var(--primary);margin-bottom:6px">การ์ดแต่ละใบแสดง:</div>
+            <div>• เลขที่เคส, แผนก, เวลาส่งคำขอ</div>
+            <div>• ชื่อผู้ป่วย, HN</div>
+            <div>• ประเภทหัตถการ &amp; ตำแหน่งเจาะ</div>
+            <div>• <span style="color:#2B6EA8;font-weight:600">ผู้รับเคส</span> — ชื่อสีน้ำเงิน (กำลังดำเนินการ/เสร็จสิ้น)</div>
+            <div>• <span style="color:#1fb361;font-weight:600">ผู้ทำหัตถการ</span> — ชื่อสีเขียว (เสร็จสิ้นเท่านั้น)</div>
+            <div>• ปุ่มแก้ไข / ยกเลิก (เฉพาะเคสที่รอดำเนินการ)</div>
+          </div>
+        </div>
+        <div class="mk-layout-phone">
+          <div class="mk-frame">
+            <div class="mk-screen">
+              <div class="mk-statusbar"><span>9:41</span></div>
+              <div class="mk-topbar">
+                <div class="mk-topbar-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div class="mk-topbar-info"><div class="mk-topbar-title">เคสของฉัน</div><div class="mk-topbar-sub">ICU</div></div>
+              </div>
+              <div class="mk-nav">
+                <div class="mk-tab">แจ้งขอ</div>
+                <div class="mk-tab">รายการเคส</div>
+                <div class="mk-tab active">เคสของฉัน</div>
+              </div>
+              <div class="mk-body">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+                  <div style="font-size:10px;font-weight:700">เคสของฉัน</div>
+                  <div class="mk-refresh-btn">⟳ รีเฟรช</div>
+                </div>
+                <!-- Card 1: เสร็จสิ้น -->
+                <div class="mk-mc-card">
+                  <div class="mk-mc-top">
+                    <div style="width:26px;height:26px;background:#005059;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0">001</div>
+                    <div style="flex:1;min-width:0"><div class="mk-mc-name">ICU</div><div style="font-size:7.5px;color:#687182">08:55</div></div>
+                    <span class="mk-bdg completed"><span class="mk-dot g"></span>เสร็จสิ้น</span>
+                  </div>
+                  <div class="mk-mc-hn"><strong>สมชาย ใจดี</strong> · HN 111222</div>
+                  <div class="mk-mc-proc">เจาะเลือด · Any</div>
+                  <div class="mk-mc-accepted">👤 ผู้รับเคส: พว.นิวาริน</div>
+                  <div class="mk-mc-completedby">✅ ผู้ทำหัตถการ: พว.มณีวรรณ์</div>
+                </div>
+                <!-- Card 2: กำลังดำเนินการ -->
+                <div class="mk-mc-card">
+                  <div class="mk-mc-top">
+                    <div style="width:26px;height:26px;background:#2B6EA8;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0">002</div>
+                    <div style="flex:1;min-width:0"><div class="mk-mc-name">ICU</div><div style="font-size:7.5px;color:#687182">09:20</div></div>
+                    <span class="mk-bdg ongoing"><span class="mk-dot b"></span>ดำเนินการ</span>
+                  </div>
+                  <div class="mk-mc-hn"><strong>มาลี สีดา</strong> · HN 333444</div>
+                  <div class="mk-mc-proc">แทง IV · ซ้าย</div>
+                  <div class="mk-mc-accepted">👤 ผู้รับเคส: พว.ยุพิณ</div>
+                </div>
+                <!-- Card 3: รอดำเนินการ -->
+                <div class="mk-mc-card">
+                  <div class="mk-mc-top">
+                    <div style="width:26px;height:26px;background:#005059;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0">003</div>
+                    <div style="flex:1;min-width:0"><div class="mk-mc-name">ICU</div><div style="font-size:7.5px;color:#687182">09:38</div></div>
+                    <span class="mk-bdg pending"><span class="mk-dot y"></span>รอ</span>
+                  </div>
+                  <div class="mk-mc-hn"><strong>ประทีป ดีใจ</strong> · HN 555666</div>
+                  <div class="mk-mc-proc">เจาะเลือด + แทง IV · Any</div>
+                  <div style="display:flex;gap:5px;margin-top:7px">
+                    <div style="flex:1;padding:5px 8px;background:#EAF2FB;border-radius:4px;font-size:8px;font-weight:600;color:#2B6EA8;text-align:center">✏ แก้ไข</div>
+                    <div style="flex:1;padding:5px 8px;background:#FEF0F0;border-radius:4px;font-size:8px;font-weight:600;color:#CC3333;text-align:center">🗑 ยกเลิก</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mk-caption">เคสของฉัน — แสดงผู้รับ/ผู้ทำ</div>
+        </div>
+      </div>
+    </div>
+    <div class="subsection">
+      <h3><div class="sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#005059" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>แก้ไข &amp; ยกเลิก (เฉพาะเคสที่รอดำเนินการ)</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>แก้ไข:</strong> กดปุ่มแก้ไขสีน้ำเงิน → แก้ไขข้อมูลในฟอร์ม → กด <strong>บันทึกการเปลี่ยนแปลง</strong></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>ยกเลิก:</strong> กดปุ่มยกเลิกสีแดง → ยืนยันในกล่องข้อความ เคสจะเปลี่ยนเป็น <span class="badge badge-canceled" style="font-size:10px"><span class="dot dot-grey"></span>ยกเลิก</span> (ไม่ได้ลบออกถาวร)</div></div>
+      </div>
+      <div class="callout callout-warn" style="margin-top:12px"><span class="callout-icon">⚠️</span><div><strong>เมื่อรับเคสแล้ว = ไม่สามารถแก้ไขหรือยกเลิกได้</strong>หากทีม IV รับเคสแล้ว (สถานะกำลังดำเนินการ) ปุ่มแก้ไขและยกเลิกจะไม่ปรากฏ</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     5. ทีม IV
+════════════════════════════════════════ -->
+<div id="ivteam">
+  <div class="section-header accent"><div class="section-num">5</div><h2>ทีม IV</h2><div class="user-tags"><span class="tag tag-t1">🔷 ประเภท 1 เท่านั้น</span></div></div>
+  <div class="section-body">
+    <div class="subsection">
+      <div class="user-banner t1">🔷 หน้านี้มองเห็นได้เฉพาะเจ้าหน้าที่ทีม IV (บัญชีประเภท 1) เท่านั้น</div>
+      <h3><div class="sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#005059" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>รายการเคสที่ใช้งานอยู่</h3>
+      <div class="mk-layout">
+        <div class="mk-layout-content">
+          <p style="font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px">แสดงเคสที่ยังใช้งานอยู่ทั้งหมด (รอดำเนินการ + กำลังดำเนินการ) ตัวเลขในแถบด้านบนแสดงจำนวนเคส</p>
+          <table class="field-table">
+            <tbody>
+              <tr><td width="160"><strong>รีเฟรชอัตโนมัติ</strong></td><td>ตรวจสอบเคสใหม่ทุก <strong>60 วินาที</strong> ขณะเข้าสู่ระบบทุกหน้า</td></tr>
+              <tr><td><strong>เสียงแจ้งเตือน 🔔</strong></td><td>เล่นเสียงปิงสองครั้งเมื่อมีการจองเข้ามาใหม่ กดไอคอนลำโพงในแถบด้านบนเพื่อเปิด/ปิด</td></tr>
+              <tr><td><strong>ป้าย NEW</strong></td><td>เคสใหม่ที่เข้ามาตั้งแต่ตรวจล่าสุดจะมีป้ายสีเหลือง <strong>NEW</strong> กะพริบ</td></tr>
+            </tbody>
+          </table>
+          <div class="callout callout-warn" style="margin-top:12px"><span class="callout-icon">📱</span><div><strong>เสียงบนมือถือ:</strong> กดไอคอนลำโพงหนึ่งครั้งก่อน เบราว์เซอร์ต้องการการโต้ตอบจากผู้ใช้ก่อนเล่นเสียง</div></div>
+        </div>
+        <div class="mk-layout-phone">
+          <div class="mk-frame">
+            <div class="mk-screen">
+              <div class="mk-statusbar"><span>9:41</span></div>
+              <div class="mk-topbar">
+                <div class="mk-topbar-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div>
+                <div class="mk-topbar-info"><div class="mk-topbar-title">เคสที่ใช้งานอยู่</div><div class="mk-topbar-sub">ทีม IV</div></div>
+                <span class="mk-badge-count">3</span>
+                <div style="margin-left:4px;background:rgba(255,255,255,.15);border-radius:4px;padding:4px 6px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
+              </div>
+              <div class="mk-nav">
+                <div class="mk-tab">แจ้งขอ</div>
+                <div class="mk-tab">รายการ</div>
+                <div class="mk-tab">เคสฉัน</div>
+                <div class="mk-tab active">ทีม IV</div>
+                <div class="mk-tab">Dash</div>
+              </div>
+              <div class="mk-body">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+                  <div style="font-size:10px;font-weight:700">เคสที่ใช้งานอยู่</div>
+                  <div class="mk-refresh-btn">⟳ รีเฟรช</div>
+                </div>
+                <div class="mk-case-card" style="border-color:#9EC8F0">
+                  <div class="mk-case-no ong">001</div>
+                  <div class="mk-case-info">
+                    <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap"><span class="mk-c-dept">ICU</span><span class="mk-bdg ongoing"><span class="mk-dot b"></span>ดำเนินการ</span></div>
+                    <div class="mk-c-time">08:55</div>
+                    <div class="mk-c-reason">Failed venipuncture</div>
+                    <div class="mk-c-accepted">👤 พว.นิวาริน</div>
+                  </div>
+                  <svg class="mk-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#DDE2D8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+                <div class="mk-case-card">
+                  <div class="mk-case-no">002</div>
+                  <div class="mk-case-info">
+                    <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap"><span class="mk-c-dept">ER OPD</span><span class="mk-bdg pending"><span class="mk-dot y"></span>รอ</span><span style="background:#FFF3CD;color:#856404;border:1px solid #FFDA6A;border-radius:90px;font-size:7.5px;font-weight:700;padding:1px 5px">NEW</span></div>
+                    <div class="mk-c-time">09:38</div>
+                    <div class="mk-c-reason">DIVA</div>
+                  </div>
+                  <svg class="mk-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#DDE2D8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+                <div class="mk-case-card">
+                  <div class="mk-case-no">003</div>
+                  <div class="mk-case-info">
+                    <div style="display:flex;align-items:center;gap:4px"><span class="mk-c-dept">Ward 14</span><span class="mk-bdg pending"><span class="mk-dot y"></span>รอ</span></div>
+                    <div class="mk-c-time">09:55</div>
+                    <div class="mk-c-reason">Request IV Team</div>
+                  </div>
+                  <svg class="mk-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#DDE2D8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mk-caption">ทีม IV — รายการเคสที่ใช้งานอยู่</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- รับเคส -->
+    <div class="subsection">
+      <h3><div class="sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2B6EA8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>ขั้นตอนที่ 1 — รับเคส (รอดำเนินการ → กำลังดำเนินการ)</h3>
+      <div class="mk-layout">
+        <div class="mk-layout-content">
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-text">กดการ์ดเคสที่มีสถานะ <span class="badge badge-pending" style="font-size:10px"><span class="dot dot-y"></span>รอดำเนินการ</span> เพื่อเปิดหน้ารายละเอียด</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">ตรวจสอบข้อมูลผู้ป่วย: แผนก, เหตุผล, HN, ชื่อ, อายุ, ประเภทหัตถการ, ข้อควรระวัง, เลขที่เตียง, แผนการรักษา</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text">ในแผง <strong>รับเคส</strong> สีน้ำเงิน เลือกชื่อของคุณใน <strong>ผู้รับเคส</strong> เลือก "อื่น ๆ" เพื่อพิมพ์ชื่อเอง</div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-text">กด <strong>รับเคส</strong> สถานะจะเปลี่ยนเป็น <span class="badge badge-ongoing" style="font-size:10px"><span class="dot dot-b"></span>กำลังดำเนินการ</span></div></div>
+          </div>
+        </div>
+        <div class="mk-layout-phone">
+          <div class="mk-frame">
+            <div class="mk-screen">
+              <div class="mk-statusbar"><span>9:41</span></div>
+              <div class="mk-topbar">
+                <div class="mk-topbar-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div>
+                <div class="mk-topbar-info"><div class="mk-topbar-title">เคสที่ใช้งานอยู่</div><div class="mk-topbar-sub">ทีม IV</div></div>
+              </div>
+              <div class="mk-body" style="padding:6px 8px">
+                <div class="mk-det-section">
+                  <div class="mk-det-hd">สรุปเคส</div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">สถานะ</div><div class="mk-det-val"><span class="mk-bdg pending"><span class="mk-dot y"></span>รอดำเนินการ</span></div></div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">เลขที่</div><div class="mk-det-val" style="font-weight:700">002</div></div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">แผนก</div><div class="mk-det-val">ER OPD</div></div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">เหตุผล</div><div class="mk-det-val">DIVA</div></div>
+                </div>
+                <div class="mk-det-section">
+                  <div class="mk-det-hd">ผู้ป่วย</div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">HN</div><div class="mk-det-val">555666</div></div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">ชื่อ</div><div class="mk-det-val">ประทีป ดีใจ</div></div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">อายุ</div><div class="mk-det-val">65 ปี</div></div>
+                </div>
+                <div class="mk-card" style="margin-top:5px">
+                  <div class="mk-card-hd blue">รับเคส</div>
+                  <div class="mk-card-body">
+                    <div class="mk-field"><div class="mk-lbl">ผู้รับเคส <span style="color:#CC3333">*</span></div><div class="mk-input" style="color:#005059;font-weight:600">พว.นิวาริน ▾</div></div>
+                  </div>
+                </div>
+                <div class="mk-btn-row">
+                  <div class="mk-btn secondary">← กลับ</div>
+                  <div class="mk-btn blue">✓ รับเคส</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mk-caption">รายละเอียดเคส — ฟอร์มรับเคส</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ปิดเคส -->
+    <div class="subsection">
+      <h3><div class="sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1fb361" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>ขั้นตอนที่ 2 — ปิดเคส (กำลังดำเนินการ → เสร็จสิ้น)</h3>
+      <div class="mk-layout">
+        <div class="mk-layout-content">
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-text">กดการ์ดเคสที่มีสถานะ <span class="badge badge-ongoing" style="font-size:10px"><span class="dot dot-b"></span>กำลังดำเนินการ</span> เพื่อเปิดหน้ารายละเอียด</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">กรอกข้อมูลในแผง <strong>ปิดเคส</strong> สีเขียว ช่องที่มีเครื่องหมาย <span class="req-star">*</span> ต้องกรอกทั้งหมด:</div></div>
+          </div>
+          <table class="field-table" style="margin-top:10px">
+            <thead><tr><th>ช่องข้อมูล</th><th>ตัวเลือก</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ผู้ทำหัตถการ</strong> <span class="req-star">*</span></td><td>เลือกชื่อ (หรือ "อื่น ๆ" เพื่อพิมพ์เอง)</td></tr>
+              <tr><td><strong>จำนวนครั้งที่เจาะ</strong> <span class="req-star">*</span></td><td>1 ครั้ง / 2 ครั้ง / มากกว่า 2 ครั้ง</td></tr>
+              <tr><td><strong>ตำแหน่งที่เจาะ</strong> <span class="req-star">*</span></td><td>มือขวา/ซ้าย, แขน, Antecubital fossa, ขา, อื่น ๆ</td></tr>
+              <tr><td><strong>ประเภทอุปกรณ์ IVT</strong> <span class="req-star">*</span></td><td>Needle 21–23, BD Nexiva, IV Catheter, Scalp vein (14 ตัวเลือก)</td></tr>
+              <tr><td><strong>หมายเหตุ</strong></td><td><span class="opt-tag">ไม่บังคับ</span> ข้อความอิสระ</td></tr>
+            </tbody>
+          </table>
+          <div class="steps" style="margin-top:12px">
+            <div class="step"><div class="step-num">3</div><div class="step-text">กด <strong>ปิดเคส</strong> จะมีการ์ดยืนยันความสำเร็จขึ้นมา</div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-text">กด <strong>กลับไปรายการ</strong> เพื่อกลับสู่หน้าเคสที่ใช้งานอยู่</div></div>
+          </div>
+          <div class="callout callout-success" style="margin-top:12px"><span class="callout-icon">✅</span><div><strong>บันทึกการตรวจสอบย้อนหลัง</strong> ทั้ง "ผู้รับเคส" และ "ผู้ทำหัตถการ" จะถูกบันทึกไว้ใน Google Sheets และแสดงในหน้าเคสของฉัน</div></div>
+        </div>
+        <div class="mk-layout-phone">
+          <div class="mk-frame">
+            <div class="mk-screen">
+              <div class="mk-statusbar"><span>10:05</span></div>
+              <div class="mk-topbar">
+                <div class="mk-topbar-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div>
+                <div class="mk-topbar-info"><div class="mk-topbar-title">เคสที่ใช้งานอยู่</div><div class="mk-topbar-sub">ทีม IV</div></div>
+              </div>
+              <div class="mk-body" style="padding:6px 8px">
+                <div class="mk-det-section">
+                  <div class="mk-det-hd">สรุปเคส</div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">สถานะ</div><div class="mk-det-val"><span class="mk-bdg ongoing"><span class="mk-dot b"></span>ดำเนินการ</span></div></div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">เลขที่</div><div class="mk-det-val" style="font-weight:700">001</div></div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">แผนก</div><div class="mk-det-val">ICU</div></div>
+                  <div class="mk-det-row"><div class="mk-det-lbl">เหตุผล</div><div class="mk-det-val">Failed venipuncture</div></div>
+                </div>
+                <div class="mk-card" style="margin-top:5px">
+                  <div class="mk-card-hd green">ปิดเคส</div>
+                  <div style="padding:5px 10px;background:#fff;font-size:8px;color:#687182">ผู้รับเคส: <strong style="color:#2B6EA8">พว.นิวาริน</strong></div>
+                  <div class="mk-card-body">
+                    <div class="mk-field"><div class="mk-lbl">ผู้ทำหัตถการ <span style="color:#CC3333">*</span></div><div class="mk-input" style="color:#005059;font-weight:600">พว.มณีวรรณ์ ▾</div></div>
+                    <div class="mk-field"><div class="mk-lbl">จำนวนครั้งที่เจาะ <span style="color:#CC3333">*</span></div><div class="mk-input" style="color:#005059;font-weight:600">1 ครั้ง ▾</div></div>
+                    <div class="mk-field"><div class="mk-lbl">ตำแหน่งที่เจาะ <span style="color:#CC3333">*</span></div><div class="mk-input" style="color:#005059;font-weight:600">มือขวา ▾</div></div>
+                    <div class="mk-field"><div class="mk-lbl">ประเภทอุปกรณ์ IVT <span style="color:#CC3333">*</span></div><div class="mk-input" style="color:#005059;font-weight:600">IV Catheter No.22 ▾</div></div>
+                  </div>
+                </div>
+                <div class="mk-btn-row">
+                  <div class="mk-btn secondary">← กลับ</div>
+                  <div class="mk-btn green">✓ ปิดเคส</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mk-caption">รายละเอียดเคส — ฟอร์มปิดเคส</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     6. แดชบอร์ด
+════════════════════════════════════════ -->
+<div id="dashboard">
+  <div class="section-header accent"><div class="section-num">6</div><h2>แดชบอร์ด</h2><div class="user-tags"><span class="tag tag-t1">🔷 ประเภท 1 เท่านั้น</span></div></div>
+  <div class="section-body">
+    <div class="subsection">
+      <div class="user-banner t1">🔷 หน้านี้มองเห็นได้เฉพาะเจ้าหน้าที่ทีม IV (บัญชีประเภท 1) เท่านั้น</div>
+      <h3><div class="sub-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#005059" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>สถิติและตัวชี้วัดผลการดำเนินงาน</h3>
+      <div class="mk-layout">
+        <div class="mk-layout-content">
+          <p style="font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:14px">แดชบอร์ดแสดง KPI และกราฟต่าง ๆ ใช้ปุ่มกรองช่วงเวลา จากนั้นกดรีเฟรชเพื่อโหลดข้อมูลใหม่</p>
+          <table class="field-table">
+            <thead><tr><th>ตัวชี้วัด / กราฟ</th><th>คำอธิบาย</th></tr></thead>
+            <tbody>
+              <tr><td><strong>จำนวนเคสทั้งหมด</strong></td><td>เคสทั้งหมดในช่วงเวลาที่เลือก (รอ + ดำเนินการ + เสร็จ + ยกเลิก)</td></tr>
+              <tr><td><strong>รอ / ดำเนินการ / เสร็จ / ยกเลิก</strong></td><td>จำนวนเคสแยกตามสถานะ</td></tr>
+              <tr><td><strong>เวลาเฉลี่ยในการรับเคส</strong></td><td>เฉลี่ยกี่นาทีจากการส่งคำขอถึงการรับเคส</td></tr>
+              <tr><td><strong>เวลาเฉลี่ยในการปิดเคส</strong></td><td>เฉลี่ยกี่นาทีจากการรับเคสถึงการปิดเคส</td></tr>
+              <tr><td><strong>อัตราสำเร็จครั้งแรก</strong></td><td>% เคสที่ทำสำเร็จในครั้งเดียว เกจ: 🟢 ≥80%, 🩵 ≥50%, 🟡 ต่ำกว่า 50%</td></tr>
+              <tr><td><strong>ปริมาณเคส</strong></td><td>จำนวนเคสรายวันใน 7 / 30 / 90 วัน (กราฟเส้น)</td></tr>
+              <tr><td><strong>แยกตามแผนก</strong></td><td>แผนกที่แจ้งขอมากที่สุด (กราฟแท่ง)</td></tr>
+              <tr><td><strong>การปิดเคสตามช่วงเวลา</strong></td><td>เวลาที่ปิดเคสตลอดวัน</td></tr>
+              <tr><td><strong>แยกตามเหตุผล / ประเภทหัตถการ</strong></td><td>สัดส่วนเหตุผลและประเภทหัตถการ (กราฟโดนัท)</td></tr>
+              <tr><td><strong>ภาระงานแต่ละคน</strong></td><td>จำนวนเคสที่ปิดแยกตามสมาชิกทีม IV (จัดอันดับ)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mk-layout-phone">
+          <div class="mk-frame">
+            <div class="mk-screen">
+              <div class="mk-statusbar"><span>9:41</span></div>
+              <div class="mk-topbar">
+                <div class="mk-topbar-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+                <div class="mk-topbar-info"><div class="mk-topbar-title">แดชบอร์ด</div><div class="mk-topbar-sub">ทีม IV</div></div>
+              </div>
+              <div class="mk-nav">
+                <div class="mk-tab">แจ้งขอ</div>
+                <div class="mk-tab">รายการ</div>
+                <div class="mk-tab">เคสฉัน</div>
+                <div class="mk-tab">ทีม IV</div>
+                <div class="mk-tab active">Dash</div>
+              </div>
+              <div class="mk-body">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+                  <div style="display:flex;background:#F3F0EE;border-radius:4px;padding:2px;gap:1px;border:1px solid #DDE2D8">
+                    <div style="padding:3px 8px;font-size:7.5px;font-weight:600;background:#005059;color:#fff;border-radius:3px">วันนี้</div>
+                    <div style="padding:3px 8px;font-size:7.5px;font-weight:600;color:#687182">7 วัน</div>
+                    <div style="padding:3px 8px;font-size:7.5px;font-weight:600;color:#687182">30 วัน</div>
+                  </div>
+                  <div class="mk-refresh-btn">⟳ รีเฟรช</div>
+                </div>
+                <div style="background:#fff;border-radius:8px;padding:8px;margin-bottom:6px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+                  <div style="text-align:center;margin-bottom:6px">
+                    <div style="font-size:7.5px;font-weight:700;color:#687182;text-transform:uppercase;letter-spacing:.3px">ทั้งหมด</div>
+                    <div style="font-size:24px;font-weight:800;color:#005059;line-height:1;letter-spacing:-1px">28</div>
+                  </div>
+                  <div class="mk-flow-grid">
+                    <div class="mk-flow-box p"><div class="mk-flow-num p">3</div><div class="mk-flow-lbl p">รอ</div></div>
+                    <div class="mk-flow-box o"><div class="mk-flow-num o">1</div><div class="mk-flow-lbl o">ดำเนินการ</div></div>
+                    <div class="mk-flow-box d"><div class="mk-flow-num d">23</div><div class="mk-flow-lbl d">เสร็จ ✓</div></div>
+                    <div class="mk-flow-box c"><div class="mk-flow-num c">1</div><div class="mk-flow-lbl c">ยกเลิก</div></div>
+                  </div>
+                </div>
+                <div class="mk-kpi2">
+                  <div class="mk-kpi-card a"><div class="mk-kpi-lbl">⏱ รับเคสเฉลี่ย</div><div class="mk-kpi-val" style="color:#C48A00">8 นาที</div><div class="mk-kpi-sub">รอ → ดำเนินการ</div></div>
+                  <div class="mk-kpi-card g"><div class="mk-kpi-lbl">✓ ปิดเคสเฉลี่ย</div><div class="mk-kpi-val" style="color:#1fb361">22 นาที</div><div class="mk-kpi-sub">ดำเนินการ → เสร็จ</div></div>
+                </div>
+                <div style="background:#fff;border-radius:8px;padding:8px 10px;margin-top:6px;display:flex;align-items:center;gap:8px">
+                  <div>
+                    <div style="font-size:8px;font-weight:700;color:#0f2336;margin-bottom:3px">อัตราสำเร็จครั้งแรก</div>
+                    <div style="font-size:7.5px;color:#687182">เจาะสำเร็จครั้งเดียว</div>
+                  </div>
+                  <div style="text-align:center">
+                    <svg viewBox="0 0 80 48" width="70" height="42">
+                      <path d="M 10 44 A 30 30 0 0 1 70 44" fill="none" stroke="#DDE2D8" stroke-width="7" stroke-linecap="round"/>
+                      <path d="M 10 44 A 30 30 0 0 1 70 44" fill="none" stroke="#005059" stroke-width="7" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="20"/>
+                    </svg>
+                    <div style="font-size:16px;font-weight:800;color:#005059;margin-top:-8px;letter-spacing:-1px">78%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mk-caption">แดชบอร์ด — ภาพรวม KPI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ สรุปสิทธิ์การใช้งาน ════════════════════ -->
+<div style="margin-top:36px">
+  <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px">ตารางสรุปสิทธิ์การใช้งานแต่ละประเภท</div>
+  <table class="field-table">
+    <thead><tr><th>ฟังก์ชัน</th><th style="text-align:center">🟢 ประเภท 0<br><span style="font-weight:400;text-transform:none;letter-spacing:0">แผนกต่าง ๆ</span></th><th style="text-align:center">🔷 ประเภท 1<br><span style="font-weight:400;text-transform:none;letter-spacing:0">ทีม IV</span></th></tr></thead>
+    <tbody>
+      <tr><td>แจ้งขอรับบริการ</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>ดูคิวเคสที่ใช้งานวันนี้ (อ่านอย่างเดียว)</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>ดูเคสของแผนกตัวเองวันนี้</td><td style="text-align:center">✅</td><td style="text-align:center">✅ (ทุกแผนก)</td></tr>
+      <tr><td>แก้ไขเคสที่รอดำเนินการ</td><td style="text-align:center">✅ (แผนกตัวเอง)</td><td style="text-align:center">✅</td></tr>
+      <tr><td>ยกเลิกเคสที่รอดำเนินการ</td><td style="text-align:center">✅ (แผนกตัวเอง)</td><td style="text-align:center">✅</td></tr>
+      <tr><td>รับเคส (รอ → กำลังดำเนินการ)</td><td style="text-align:center">—</td><td style="text-align:center">✅</td></tr>
+      <tr><td>ปิดเคส (กำลังดำเนินการ → เสร็จสิ้น)</td><td style="text-align:center">—</td><td style="text-align:center">✅</td></tr>
+      <tr><td>รับเสียงแจ้งเตือนเคสใหม่</td><td style="text-align:center">—</td><td style="text-align:center">✅</td></tr>
+      <tr><td>ดูแดชบอร์ดและ KPI</td><td style="text-align:center">—</td><td style="text-align:center">✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center;padding:40px 0 10px;color:var(--muted);font-size:11px;border-top:1px solid var(--border);margin-top:40px">
+  ระบบจองทีม IV &nbsp;·&nbsp; โรงพยาบาลวิมุต &nbsp;·&nbsp; เวอร์ชัน 1.0 &nbsp;·&nbsp; 2026<br>
+  <span style="opacity:.6">สำหรับปัญหาทางเทคนิค กรุณาติดต่อผู้ดูแลระบบ</span>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>
