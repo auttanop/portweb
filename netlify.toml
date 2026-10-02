@@ -1,0 +1,15 @@
+[build]
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Lets the page call /api/trace-lot instead of the long Netlify
+# functions URL. Purely cosmetic, not a security boundary.
+[[redirects]]
+  from = "/api/trace-lot"
+  to = "/.netlify/functions/trace-lot"
+  status = 200

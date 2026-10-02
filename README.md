@@ -28,8 +28,6 @@ base64-embedded anymore, so this loads fast and is easy to edit.
 ```
 index.html        - the whole site (home, resume, portfolio, case studies)
 assets/           - all images, the promo video, and the two call recordings
-sitemap.xml       - list of pages for Google (submit in Search Console)
-robots.txt        - tells search engines they can crawl the site
 README.md         - this file
 ```
 
