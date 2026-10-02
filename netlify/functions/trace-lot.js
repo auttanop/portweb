@@ -15,41 +15,46 @@
  *   FARMFORCE_PASSWORD
  *
  * ------------------------------------------------------------------
- * TODO — CONFIRM AGAINST THE REAL TENANT BEFORE GOING LIVE
+ * CONFIRMED AGAINST THE REAL TEST TENANT on 2026-10-02
  * ------------------------------------------------------------------
- * I have not seen real output from the `purchase_traceability` view on
- * your tenant, so the names below are placeholders based on the view's
- * name and the kind of fields a traceability view usually has. Run:
+ * Real response from:
+ *   GET /api/v0/view/harvest_collections/?format=json&limit=5
  *
- *   curl -u 'username:password' \
- *     "https://test.farmforce.com/api/v0/view/purchase_traceability/?format=json&limit=1"
+ *   "columns": ["Collected At", "Harvest Collection Number", "Type",
+ *     "Comment", "Farmers", "Farmer IDs", "Lot Number", "Container Id",
+ *     "Latest Facility", "Harvesting Activities", "Balance (Kg)",
+ *     "Positions", "Creation Date", "Last Modified Date"]
  *
- * ...and adjust VIEW_NAME, LOT_COLUMN, and ALLOWED_COLUMNS below to match
- * the real "columns" array that comes back. Nothing else needs to change.
+ * Each row is one farmer's individual contribution to a lot (not a
+ * farmer group), e.g. Farmer A1 delivered 50.0 Kg into Lot-1234. A lot
+ * typically has several rows, one per contributing farmer.
+ *
+ * purchase_traceability (the view originally guessed here) turned out
+ * to be shipping/logistics data (Container ID, Ship Date, etc.), not
+ * farmer-level traceability, hence the switch to harvest_collections.
  * ------------------------------------------------------------------
  */
 
-const VIEW_NAME = 'purchase_traceability';
+const VIEW_NAME = 'harvest_collections';
 
-// The column whose value we match against the requested lot number.
-// CONFIRM against real output — this is a guess based on common naming.
+// Confirmed exact column name from the real tenant.
 const LOT_COLUMN = 'Lot Number';
 
 // Allowlist of columns that are safe to return to the public page.
 // Anything in the API response NOT listed here is dropped before the
-// data ever leaves this function. Add/remove field names to match the
-// real view — do NOT switch this to "return everything" even
-// temporarily, the view may contain internal farmer contact info.
+// data ever leaves this function. "Comment" is deliberately excluded —
+// it's free-text internal notes a staff member could type anything
+// into, and "Creation Date"/"Last Modified Date" are internal metadata
+// with no public use. Add fields here only after confirming they're
+// safe to show publicly.
 const ALLOWED_COLUMNS = [
   'Lot Number',
-  'Product',
-  'Harvest Period',
-  'Province',
-  'District',
-  'Village',
-  'Farmer Group',
-  'Number of Farmers',
-  'Certification',
+  'Collected At',
+  'Harvest Collection Number',
+  'Farmers',
+  'Farmer IDs',
+  'Container Id',
+  'Balance (Kg)',
 ];
 
 exports.handler = async function (event) {
@@ -120,7 +125,10 @@ exports.handler = async function (event) {
     return jsonResponse(404, { error: 'Lot not found.' });
   }
 
-  return jsonResponse(200, { lot, groups: matches });
+  // Each match is one farmer's individual contribution to this lot
+  // (harvest_collections has one row per farmer per lot), not a
+  // farmer group in the sense the Kad Kokoa demo page displays.
+  return jsonResponse(200, { lot, collections: matches });
 };
 
 function sanitizeRow(columns, row) {
@@ -130,7 +138,8 @@ function sanitizeRow(columns, row) {
       (allowed) => allowed.toLowerCase() === String(colName).toLowerCase()
     );
     if (isAllowed) {
-      out[colName] = row[i];
+      const value = row[i];
+      out[colName] = typeof value === 'string' ? value.trim() : value;
     }
   });
   return out;
