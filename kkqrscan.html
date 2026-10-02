@@ -345,6 +345,11 @@
   .live-row-name { font-weight: 700; font-size: 14.5px; }
   .live-row-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
   .live-row-weight { font-weight: 800; font-size: 15px; color: var(--navy); white-space: nowrap; }
+  .live-group-stats { font-size: 13px; color: var(--text-muted); margin: 4px 0 12px 48px; }
+  .live-group-farmers { display: flex; flex-direction: column; gap: 6px; }
+  .live-group-farmers .live-row { padding: 9px 12px; margin-bottom: 0; }
+  .live-group-farmers .live-row-name { font-size: 13.5px; }
+  .live-group-farmers .live-row-weight { font-size: 13.5px; }
   .group-card {
     background: var(--card);
     border-radius: 14px;
@@ -540,7 +545,10 @@
     </div>
 
     <div class="groups-section" id="groups-section">
-      <h2 class="groups-h2" data-i18n="groupsH2">Contributing farmer groups</h2>
+      <div class="live-heading-row" style="margin-bottom:14px;">
+        <h2 class="groups-h2" data-i18n="groupsH2" style="margin:0;">Contributing farmer groups</h2>
+        <span class="live-badge" id="groups-live-badge" data-i18n="liveBadge" style="display:none;">LIVE</span>
+      </div>
       <div id="groups-list"></div>
     </div>
 
@@ -829,9 +837,9 @@
       document.getElementById('about-province').textContent = data.province;
       renderGroups(lot);
       renderLiveSection();
-    } else if (lastLotCode && currentMode === 'live') {
+    } else if (lastLotCode && currentMode === 'live' && lastLiveGroupsData) {
       document.getElementById('result-lot-label').textContent = formatLotLabel(lastLotCode);
-      renderLiveSection();
+      renderLiveGroups(lastLiveGroupsData.groups);
     }
 
     if (lastLotCode && screenDetail.classList.contains('is-active')) {
@@ -985,6 +993,7 @@
 
     document.getElementById('about-section').style.display = '';
     document.getElementById('groups-section').style.display = '';
+    document.getElementById('groups-live-badge').style.display = 'none';
     setStatLabels('statGroups', 'statVillages', 'statFarmers');
 
     const data = lot[currentLang];
@@ -1021,10 +1030,10 @@
         return res.json();
       })
       .then(function (data) {
-        if (!data || !Array.isArray(data.collections) || data.collections.length === 0) {
+        if (!data || !Array.isArray(data.groups) || data.groups.length === 0) {
           throw new Error('empty');
         }
-        renderLiveLotResult(code, data.collections);
+        renderLiveLotResult(code, data);
       })
       .catch(function () {
         // Covers: no real record for this lot, network error, or running
@@ -1038,37 +1047,70 @@
       });
   }
 
-  function renderLiveLotResult(code, collections) {
+  let lastLiveGroupsData = null;
+
+  function renderLiveLotResult(code, data) {
     errorMsg.classList.remove('is-visible');
     lastLotCode = code;
     currentLiveCode = code;
     currentMode = 'live';
+    lastLiveGroupsData = data;
 
     // Nothing here is invented — only fields the real API actually
-    // returned are shown, so province/certification/photos are not
-    // part of this view (harvest_collections doesn't carry them).
+    // returned are shown, so province/certification/photos aren't part
+    // of this view (harvest_collections / farmers don't carry them yet).
     document.getElementById('about-section').style.display = 'none';
-    document.getElementById('groups-section').style.display = 'none';
+    document.getElementById('groups-section').style.display = '';
+    document.getElementById('groups-live-badge').style.display = '';
+
+    // The old flat "Live verified deliveries" section is only used for
+    // the showcase lot's honest empty-check now — hide it here since
+    // the group cards below are the live data for this mode.
+    lastLiveState = null;
+    renderLiveSection();
 
     document.getElementById('result-lot-label').textContent = formatLotLabel(code);
     document.getElementById('hero-sub-text').setAttribute('data-i18n', 'resultSubLive');
     document.getElementById('hero-sub-text').textContent = STRINGS[currentLang].resultSubLive;
 
-    setStatLabels('statFarmers', 'statWeight', 'statCollections');
-    const distinctFarmers = new Set(collections.map(function (c) { return c['Farmer IDs']; })).size;
-    const totalWeight = collections.reduce(function (sum, c) {
-      return sum + (parseFloat(c['Balance (Kg)']) || 0);
-    }, 0);
-    document.getElementById('stat-groups').textContent = distinctFarmers;
-    document.getElementById('stat-villages').textContent = totalWeight.toFixed(1);
-    document.getElementById('stat-farmers').textContent = collections.length;
+    setStatLabels('statGroups', 'statWeight', 'statFarmers');
+    document.getElementById('stat-groups').textContent = data.groups.length;
+    document.getElementById('stat-villages').textContent = data.totalWeight;
+    document.getElementById('stat-farmers').textContent = data.totalFarmers;
 
-    lastLiveState = collections;
-    renderLiveSection();
+    renderLiveGroups(data.groups);
 
     screenSearch.classList.remove('is-active');
     screenResult.classList.add('is-active');
     window.scrollTo(0, 0);
+  }
+
+  function renderLiveGroups(groups) {
+    const dict = STRINGS[currentLang];
+    groupsList.innerHTML = groups.map(function (g) {
+      const farmerRows = g.farmers.map(function (f) {
+        return (
+          '<div class="live-row">' +
+            '<div>' +
+              '<div class="live-row-name">' + (f.name || '') + (f.farmerId ? ' <span style="font-weight:400;color:var(--text-muted);">(' + f.farmerId + ')</span>' : '') + '</div>' +
+              '<div class="live-row-meta">' + dict.liveCollectedOn + ' ' + (f.collectedAt || '') + '</div>' +
+            '</div>' +
+            '<div class="live-row-weight">' + f.weight + ' kg</div>' +
+          '</div>'
+        );
+      }).join('');
+
+      return (
+        '<div class="group-card">' +
+          '<div class="group-top">' +
+            '<span class="group-icon">' + personIcon() + '</span>' +
+            '<div><p class="group-name">' + g.name + '</p></div>' +
+          '</div>' +
+          '<div class="live-group-stats">' + g.farmerCount + ' ' + dict.statFarmers.toLowerCase() + ' · ' + g.totalWeight + ' kg</div>' +
+          '<div class="live-group-farmers">' + farmerRows + '</div>' +
+        '</div>'
+      );
+    }).join('');
   }
 
   // ---------- LIVE DATA rendering (shared by showcase's honest check
