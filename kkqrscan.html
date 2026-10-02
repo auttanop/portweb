@@ -316,6 +316,35 @@
 
   .groups-section { background: var(--paper); padding: 26px 20px 48px; }
   .groups-h2 { font-size: 16px; font-weight: 800; margin: 0 0 14px; }
+
+  .live-section { background: var(--paper); padding: 0 20px 36px; }
+  .live-heading-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .live-h2 { font-size: 16px; font-weight: 800; margin: 0; }
+  .live-badge {
+    background: #16A34A;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 3px 8px;
+    border-radius: 100px;
+  }
+  .live-sub { font-size: 13px; color: var(--text-muted); margin: 0 0 14px; }
+  .live-status { font-size: 13.5px; color: var(--text-muted); margin: 0 0 10px; }
+  .live-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+    margin-bottom: 8px;
+  }
+  .live-row:last-child { margin-bottom: 0; }
+  .live-row-name { font-weight: 700; font-size: 14.5px; }
+  .live-row-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .live-row-weight { font-weight: 800; font-size: 15px; color: var(--navy); white-space: nowrap; }
   .group-card {
     background: var(--card);
     border-radius: 14px;
@@ -514,6 +543,16 @@
       <h2 class="groups-h2" data-i18n="groupsH2">Contributing farmer groups</h2>
       <div id="groups-list"></div>
     </div>
+
+    <div class="live-section" id="live-section" style="display:none;">
+      <div class="live-heading-row">
+        <h2 class="live-h2" data-i18n="liveH2">Live verified deliveries</h2>
+        <span class="live-badge" data-i18n="liveBadge">LIVE</span>
+      </div>
+      <p class="live-sub" data-i18n="liveSub">Real harvest records pulled directly from Farmforce for this lot.</p>
+      <p class="live-status" id="live-status"></p>
+      <div id="live-list"></div>
+    </div>
   </section>
 
   <!-- SCREEN 3: FARMER GROUP DETAIL -->
@@ -655,6 +694,26 @@
           { name: 'กลุ่มอนุรักษ์โกโก้เชียงดาว', village: 'เชียงดาว', district: 'เชียงดาว', farmers: 6, certs: ['ได้รับการรับรอง ISTC'] }
         ]
       }
+    },
+    'LOT-9999': {
+      en: {
+        product: 'Dark Chocolate 70%, Chiang Mai',
+        harvest: 'Feb 2026',
+        province: 'Chiang Mai',
+        groups: [
+          { name: 'Pa Pae Cocoa Farmers Group', village: 'Pa Pae', district: 'Mae Taeng', farmers: 10, certs: ['ISTC Verified'] },
+          { name: 'Chiang Dao Cocoa Conservation Group', village: 'Chiang Dao', district: 'Chiang Dao', farmers: 6, certs: ['ISTC Verified'] }
+        ]
+      },
+      th: {
+        product: 'ดาร์กช็อกโกแลต 70% เชียงใหม่',
+        harvest: 'ก.พ. 2026',
+        province: 'เชียงใหม่',
+        groups: [
+          { name: 'กลุ่มเกษตรกรโกโก้ป่าแป๋', village: 'ป่าแป๋', district: 'แม่แตง', farmers: 10, certs: ['ได้รับการรับรอง ISTC'] },
+          { name: 'กลุ่มอนุรักษ์โกโก้เชียงดาว', village: 'เชียงดาว', district: 'เชียงดาว', farmers: 6, certs: ['ได้รับการรับรอง ISTC'] }
+        ]
+      }
     }
   };
 
@@ -689,7 +748,13 @@
       detailDistrict: 'อำเภอ',
       viewOnMap: 'ดูในแผนที่',
       poweredTag: 'ขับเคลื่อนโดย Farmforce Origin',
-      detailFarmers: 'จำนวนเกษตรกร'
+      detailFarmers: 'จำนวนเกษตรกร',
+      liveH2: 'ข้อมูลการส่งมอบที่ยืนยันแล้ว',
+      liveBadge: 'LIVE',
+      liveSub: 'ข้อมูลการเก็บเกี่ยวจริง ดึงตรงจากระบบ Farmforce สำหรับล็อตนี้',
+      liveLoading: 'กำลังตรวจสอบข้อมูลจริง...',
+      liveEmpty: 'ยังไม่มีข้อมูลจริงสำหรับล็อตนี้',
+      liveCollectedOn: 'เก็บเกี่ยวเมื่อ'
     },
     en: {
       eyebrow: 'Bean to bar traceability',
@@ -721,7 +786,13 @@
       detailDistrict: 'District',
       viewOnMap: 'View on map',
       poweredTag: 'Powered by Farmforce Origin',
-      detailFarmers: 'Number of farmers'
+      detailFarmers: 'Number of farmers',
+      liveH2: 'Live verified deliveries',
+      liveBadge: 'LIVE',
+      liveSub: 'Real harvest records pulled directly from Farmforce for this lot.',
+      liveLoading: 'Checking live records...',
+      liveEmpty: 'No live records found for this lot yet.',
+      liveCollectedOn: 'Collected on'
     }
   };
 
@@ -749,6 +820,7 @@
       document.getElementById('about-harvest').textContent = data.harvest;
       document.getElementById('about-province').textContent = data.province;
       renderGroups(lot);
+      renderLiveSection();
 
       if (screenDetail.classList.contains('is-active')) {
         showGroupDetail(lastReturnScreen);
@@ -883,10 +955,91 @@
     document.getElementById('stat-farmers').textContent = totalFarmers;
 
     renderGroups(lot);
+    loadLiveDeliveries(code);
 
     screenSearch.classList.remove('is-active');
     screenResult.classList.add('is-active');
     window.scrollTo(0, 0);
+  }
+
+  // ---------- LIVE DATA (real Farmforce records via Netlify function) ----------
+  // lastLiveState: 'loading' | 'empty' | an array of real collection rows.
+  // Kept separate from the demo's static LOTS data on purpose — this is
+  // genuinely live, and most demo lot codes won't exist in the real
+  // tenant yet, so "no live records" is the expected default, not a bug.
+  let lastLiveState = null;
+
+  function renderLiveSection() {
+    const section = document.getElementById('live-section');
+    const statusEl = document.getElementById('live-status');
+    const listEl = document.getElementById('live-list');
+    const dict = STRINGS[currentLang];
+
+    if (lastLiveState === null) {
+      section.style.display = 'none';
+      return;
+    }
+
+    section.style.display = '';
+
+    if (lastLiveState === 'loading') {
+      statusEl.textContent = dict.liveLoading;
+      statusEl.style.display = '';
+      listEl.innerHTML = '';
+      return;
+    }
+
+    if (lastLiveState === 'empty' || !Array.isArray(lastLiveState) || lastLiveState.length === 0) {
+      statusEl.textContent = dict.liveEmpty;
+      statusEl.style.display = '';
+      listEl.innerHTML = '';
+      return;
+    }
+
+    statusEl.style.display = 'none';
+    listEl.innerHTML = lastLiveState.map(function (row) {
+      const name = row['Farmers'] || '';
+      const farmerId = row['Farmer IDs'] || '';
+      const collectedAt = row['Collected At'] || '';
+      const weight = row['Balance (Kg)'] || '';
+      return (
+        '<div class="live-row">' +
+          '<div>' +
+            '<div class="live-row-name">' + name + (farmerId ? ' <span style="font-weight:400;color:var(--text-muted);">(' + farmerId + ')</span>' : '') + '</div>' +
+            '<div class="live-row-meta">' + dict.liveCollectedOn + ' ' + collectedAt + '</div>' +
+          '</div>' +
+          '<div class="live-row-weight">' + weight + ' kg</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  function loadLiveDeliveries(code) {
+    lastLiveState = 'loading';
+    renderLiveSection();
+
+    fetch('/api/trace-lot?lot=' + encodeURIComponent(code))
+      .then(function (res) {
+        if (!res.ok) throw new Error('not ok');
+        return res.json();
+      })
+      .then(function (data) {
+        if (data && Array.isArray(data.collections) && data.collections.length > 0) {
+          lastLiveState = data.collections;
+        } else {
+          lastLiveState = 'empty';
+        }
+        renderLiveSection();
+      })
+      .catch(function () {
+        // Covers: function not deployed yet, this lot has no real
+        // records, network error, or running inside the claude.ai
+        // artifact preview where this endpoint doesn't exist at all.
+        // All of these should look the same to the visitor: no live
+        // data for this lot, not a scary error.
+        lastLiveState = 'empty';
+        renderLiveSection();
+      });
   }
 
   btn.addEventListener('click', doLookup);
